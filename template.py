@@ -4,7 +4,7 @@ import logging
 
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s]: %(message)s:')
 
-project_name = 'Image_Classification'
+project_name = 'ImageClassifier'
 
 list_files = [
     '.github/workflows/.gitkeep',
@@ -21,7 +21,9 @@ list_files = [
     'params.yaml',
     'requirements.txt',
     'setup.py',
-    'research/trials.ipynb'
+    'setup.sh',
+    'research/trials.ipynb',
+    'templates/index.html'
 ]
 
 for filepath in list_files:
