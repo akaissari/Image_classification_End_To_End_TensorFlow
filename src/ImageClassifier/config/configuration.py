@@ -1,7 +1,7 @@
+import os
 from ImageClassifier.constants import *
 from ImageClassifier.utils.common import read_yaml, create_directories
-from ImageClassifier.entity.config_entity import DataIngestionConfig
-from ImageClassifier.entity.config_entity import BaseModelConfig
+from ImageClassifier.entity.config_entity import DataIngestionConfig, BaseModelConfig, CallbacksConfig
 
 class ConfigurationManager:
     def __init__(
@@ -42,3 +42,18 @@ class ConfigurationManager:
         )
 
         return base_model_config
+    
+    def get_prepare_callbacks_config(self) -> CallbacksConfig:
+        config = self.config.prepare_callbacks
+        model_checkpoints_dir = os.path.dirname(config.checkpoint_model_filepath)
+        create_directories([
+            Path(model_checkpoints_dir),
+            Path(config.tensorboard_root_log_dir)
+        ])
+
+        callback_config =  CallbacksConfig(
+            root_dir=config.root_dir,
+            tensorboard_root_log_dir=Path(config.tensorboard_root_log_dir),
+            checkpoint_model_filepath=Path(config.checkpoint_model_filepath)
+        )
+        return callback_config
