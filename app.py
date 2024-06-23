@@ -39,8 +39,9 @@ def predictRoute():
     try:
         image = request.json['image']
         decodeImage(image, clApp.filename)
-        result = clApp.classifier.predict()
-        return jsonify(result)
+        #result = clApp.classifier.predict()
+        #return jsonify(result)
+        return jsonify({'success':'image uploaded successfully'})
     except Exception as e:
         return jsonify({"error": str(e)})
 
