@@ -23,3 +23,8 @@ prepare_callbacks:
 training:
   root_dir: artifacts/training
   trained_model_path: artifacts/training/model_trained_weights.keras
+
+evaluation:
+  unzip_dir: artifacts/data_ingestion
+  data_name: "Chicken-fecal-images"
+  trained_model_path: artifacts/training/model_trained_weights.keras

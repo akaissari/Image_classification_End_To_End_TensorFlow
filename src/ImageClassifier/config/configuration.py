@@ -1,7 +1,7 @@
 import os
 from ImageClassifier.constants import *
 from ImageClassifier.utils.common import read_yaml, create_directories
-from ImageClassifier.entity.config_entity import DataIngestionConfig, BaseModelConfig, CallbacksConfig, TrainingConfig
+from ImageClassifier.entity.config_entity import DataIngestionConfig, BaseModelConfig, CallbacksConfig, TrainingConfig, EvaluationConfig
 
 class ConfigurationManager:
     def __init__(
@@ -77,3 +77,16 @@ class ConfigurationManager:
             params_image_size=params.IMAGE_SIZE
         )
         return training_config
+
+    def get_validation_config(self) -> EvaluationConfig:
+        evaluation = self.config.evaluation
+        path_of_model = evaluation.trained_model_path
+        path_of_training_data=os.path.join(self.config.data_ingestion.unzip_dir, self.config.data_ingestion.data_name)
+        eval_config = EvaluationConfig(
+            path_of_model=Path(path_of_model),
+            training_data=Path(path_of_training_data),
+            all_params=self.params,
+            params_image_size=self.params.IMAGE_SIZE,
+            params_batch_size=self.params.BATCH_SIZE
+        )
+        return eval_config
