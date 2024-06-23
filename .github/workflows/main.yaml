@@ -88,7 +88,11 @@ jobs:
          
       - name: Stop and remove container if running
         run: |
-         docker ps -q --filter "name=ImageClassifierApp" | grep -q . && docker stop ImageClassifierApp && docker rm -fv ImageClassifierApp
+          CONTAINER_ID=$(docker ps -q --filter "name=ImageClassifierApp")
+          if [ ! -z "$CONTAINER_ID" ]; then
+          docker stop $CONTAINER_ID
+          docker rm -fv $CONTAINER_ID
+          fi
        
       - name: Run Docker Image to serve users
         run: |
