@@ -9,6 +9,8 @@ from box import ConfigBox
 from pathlib import Path
 from typing import Any
 import base64
+import logging
+logging.basicConfig(level=logging.INFO)
 
 ### Ensure annotations: ensure that the function respect the signature of the function
 ### ConfigBox allows to use dict.key as dict["key"] 
@@ -127,12 +129,17 @@ def get_size(path: Path) -> str:
 
 def decodeImage(imgstring, fileName):
     try:
+        logging.info("Starting to decode the image...")
         imgdata = base64.b64decode(imgstring)
+        logging.info(f"Image decoded, size: {len(imgdata)} bytes")
+
         with open(fileName, 'wb') as f:
             f.write(imgdata)
+        logging.info(f"Image written to {fileName} successfully")
     except Exception as e:
-        print("Failed to decode and write image: ", str(e))
+        logging.error(f"Error in decodeImage: {str(e)}", exc_info=True)
         raise
+
 
 
 
