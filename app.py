@@ -14,16 +14,17 @@ CORS(app) # Enable Cross-Origin Resource Sharing (CORS) for all routes to allow 
 
 class ClientApp:
     def __init__(self):
+        ## the input will be stored here when using decodeImage function
         self.filename = "inputImage.jpg"
         self.classifier = PredictionPipeline(self.filename)
 
-
+# Run the Html Page
 @app.route("/", methods=['GET'])
 @cross_origin()
 def home():
     return render_template('index.html')
 
-
+# Run the Training Script
 @app.route("/train", methods=['GET','POST'])
 @cross_origin()
 def trainRoute():
@@ -31,7 +32,7 @@ def trainRoute():
     return "Training done successfully!"
 
 
-
+# Run the Prediction Script
 @app.route("/predict", methods=['POST'])
 @cross_origin()
 def predictRoute():
