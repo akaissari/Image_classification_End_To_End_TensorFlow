@@ -10,7 +10,7 @@ class BaseModelTrainingPipeline:
     
     def main(self) -> None:
         config = ConfigurationManager()
-        base_model_config = config.get_prepare_base_model_config()
+        base_model_config = config.get_base_model_config()
         base_model = BaseModel(config=base_model_config)
         base_model.get_base_model()
         base_model.update_base_model()
