@@ -28,6 +28,7 @@ def home():
 @app.route("/train", methods=['GET','POST'])
 @cross_origin()
 def trainRoute():
+    os.system("dvc init")
     os.system("dvc repro")
     return "Training done successfully!"
 

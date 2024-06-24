@@ -5,7 +5,8 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 import os
 from pathlib import Path
-
+import logging
+logging.basicConfig(level=logging.INFO)
 
 
 class PredictionPipeline:
@@ -24,10 +25,14 @@ class PredictionPipeline:
         model = load_model(Path(self.path_of_model))
 
         imagename = self.filename
+        logging.info(f"Loading image from {self.filename}")
         test_image = image.load_img(imagename, target_size = self.target_size)
         test_image = image.img_to_array(test_image)
+        
         test_image = np.expand_dims(test_image, axis = 0)
+        logging.info("Making prediction")
         result = np.argmax(model.predict(test_image), axis=1)
+        logging.info(f"Prediction result: {result}")
         print(result)
 
         if result[0] == 1:
