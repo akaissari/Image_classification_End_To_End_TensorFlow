@@ -128,17 +128,11 @@ def get_size(path: Path) -> str:
 
 
 def decodeImage(imgstring, fileName):
-    try:
-        logging.info("Starting to decode the image...")
-        imgdata = base64.b64decode(imgstring)
-        logging.info(f"Image decoded, size: {len(imgdata)} bytes")
+    imgdata = base64.b64decode(imgstring)
+    with open(fileName, 'wb') as f:
+        f.write(imgdata)
+        f.close()
 
-        with open(fileName, 'wb') as f:
-            f.write(imgdata)
-        logging.info(f"Image written to {fileName} successfully")
-    except Exception as e:
-        logging.error(f"Error in decodeImage: {str(e)}", exc_info=True)
-        raise
 
 
 
